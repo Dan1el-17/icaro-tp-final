@@ -75,6 +75,7 @@ const getProductsWithPagination = asyncHandler(async (req, res) => {
                     stock: product.stock,
                     discount: product.discount,
                     image: product.image,
+                    rating: product.rating,
                     active: product.active,
                     Category: product.Category,
                     Wish: product.Wish,
@@ -159,7 +160,10 @@ const getProduct = asyncHandler(async (req, res) => {
             },
             {
                 model: models.Review,
-                attributes: { exclude: ['id', 'createdAt', 'updatedAt'] }
+                attributes: { exclude: ['id', 'createdAt', 'updatedAt'] },
+                include: [
+                    { model: models.User, attributes: ['firstname', 'lastname', 'email'] }
+                ]
             },
             {
                 model: models.Wish,
